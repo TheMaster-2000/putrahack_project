@@ -1,79 +1,139 @@
-
 import 'package:flutter/material.dart';
 import 'scan_suggest_pages.dart';
 
-class homePage extends StatelessWidget {
-  const homePage({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+
       appBar: AppBar(
-        title: Text('Healthy',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.bold
-          ),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        centerTitle: true,
-        leading: Container(
-          margin: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(10)
+        title: const Text("MakanSafe"),
+        backgroundColor: Colors.black,
       ),
-      child: Icon(
-        Icons.menu,
-        color: Colors.white,
-      )
-    ),
-   ),
-   body: Padding(
-    padding: const EdgeInsets.all(16.0),
-    child:Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-        'Welcome to Healthy!',
-        style: TextStyle(
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
+
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+
+            /// HERO SECTION
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(24),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.black, Colors.green],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+              ),
+
+              child: Column(
+                children: const [
+                  SizedBox(height: 20),
+
+                  Text(
+                    "Eat Safely & Smartly",
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+
+                  SizedBox(height: 10),
+
+                  Text(
+                    "Scan food, detect allergens, and get diet suggestions",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white70),
+                  ),
+
+                  SizedBox(height: 20),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            /// BUTTONS
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      minimumSize: const Size(double.infinity, 50),
+                    ),
+                    onPressed: () {},
+                    child: const Text("Scan Product"),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      minimumSize: const Size(double.infinity, 50),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const ScanSuggestPage(),
+                        ),
+                      );
+                    },
+                    child: const Text("Get Suggestions"),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            /// FEATURE CARDS
+
+            featureCard(
+              Icons.qr_code,
+              "Barcode Scanner",
+              "Scan food to detect allergens",
+            ),
+
+            featureCard(
+              Icons.restaurant,
+              "Meal Suggestions",
+              "Get diet suggestions",
+            ),
+
+            featureCard(
+              Icons.shield,
+              "Allergen Alert",
+              "Warn unsafe food",
+            ),
+
+            const SizedBox(height: 30),
+          ],
         ),
-          textAlign:TextAlign.center,
+      ),
+    );
+  }
+
+  Widget featureCard(IconData icon, String title, String desc) {
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: Card(
+        elevation: 4,
+        child: ListTile(
+          leading: Icon(icon, size: 40),
+          title: Text(title),
+          subtitle: Text(desc),
         ),
-        SizedBox(height: 20),
-        Text(
-          'Scan your food or get personalized suggestion based on your dietary goals',
-          style: TextStyle(fontSize: 16),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(height: 40),
-        ElevatedButton(
-          onPressed: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute( 
-                builder: (context) => const ScanSuggestPage()),
-            );
-          },
-          style: ElevatedButton.styleFrom( 
-            padding: EdgeInsets.symmetric(vertical: 16),
-            backgroundColor: Colors.black,
-            shape: RoundedRectangleBorder( 
-              borderRadius: BorderRadius.circular(10),
-            )
-          ),
-          child: Text(
-            'Go to Scan & Suggest',
-            style: TextStyle(fontSize: 18, color: Colors.white),
-          ),
-        ),
-      ],
-    ),
-   ),
+      ),
     );
   }
 }
